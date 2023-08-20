@@ -1,0 +1,12 @@
+.form {
+  padding: 15px;
+  border: 2px solid #000;
+}
+
+.form label:not(:last-child) {
+  margin-bottom: 6px;
+}
+
+.form input:not(:last-child) {
+  margin-bottom: 20px;
+}

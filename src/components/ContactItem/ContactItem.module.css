@@ -1,0 +1,8 @@
+.item {
+  font-size: 18px;
+}
+
+.item span {
+  display: inline-block;
+  margin-right: 12px;
+}

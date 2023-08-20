@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 15px 0;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+label {
+  font-size: 20px;
+  display: inline-block;
+}
+
+/* input:hover {
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+input:focus {
+  border-color: blue;
+} */
+
+button {
+  padding: 3px 5px;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 5px;
+  line-height: 1;
+  letter-spacing: 0.8px;
+  transition: border-color 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+
+button:hover {
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+button:active {
+  background-color: rgba(0, 0, 255, 0.3);
+}
