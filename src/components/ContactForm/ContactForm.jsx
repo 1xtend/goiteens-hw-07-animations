@@ -3,7 +3,7 @@ import styles from './ContactForm.module.css';
 
 import { motion } from 'framer-motion';
 
-function ContactForm({ onNameChange, onNumberChange, onSubmit }) {
+function ContactForm({ onNameChange, onNumberChange, onSubmit, isLoading }) {
   return (
     <motion.form
       className={styles.form}
@@ -33,7 +33,9 @@ function ContactForm({ onNameChange, onNumberChange, onSubmit }) {
         onChange={onNumberChange}
       />
 
-      <button type="submit">Add contact</button>
+      <button type="submit" disabled={isLoading}>
+        Add contact
+      </button>
     </motion.form>
   );
 }

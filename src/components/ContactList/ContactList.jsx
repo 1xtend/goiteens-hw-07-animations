@@ -14,7 +14,7 @@ function ContactList({ contacts, onDelete }) {
                   id={contact.id}
                   name={contact.name}
                   number={contact.number}
-                  key={contact.id}
+                  key={contact.number}
                   onDelete={onDelete}
                 />
               ))}

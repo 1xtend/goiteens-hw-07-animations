@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 
 import Container from './components/Container/Container';
 import Section from './components/Section/Section';
 import ContactForm from './components/ContactForm/ContactForm';
 import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
+
+import {
+  createContactService,
+  getAllContactsService,
+  removeContactService,
+} from './services/contactsServices';
+
+import { TailSpin } from 'react-loader-spinner';
 
 function initContacts() {
   const persistedContacts = localStorage.getItem('contacts');
@@ -22,6 +29,20 @@ function App() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [filter, setFilter] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    getAllContactsService()
+      .then((data) => {
+        setContacts(data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -49,19 +70,34 @@ function App() {
     const numberInput = e.target.elements.number;
 
     const contact = {
-      id: nanoid(),
       name,
       number,
     };
 
-    setContacts((prevContacts) => [contact, ...prevContacts]);
+    setIsLoading(true);
 
-    nameInput.value = '';
-    numberInput.value = '';
+    createContactService(contact)
+      .then(() => {
+        setContacts((prevContacts) => [contact, ...prevContacts]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+
+        nameInput.value = '';
+        numberInput.value = '';
+      });
   }
 
   function deleteContact(id) {
-    setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
+    setIsLoading(true);
+
+    removeContactService(id)
+      .then(() => {
+        setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   function filterContacts(e) {
@@ -79,8 +115,10 @@ function App() {
           onNameChange={handleNameInput}
           onNumberChange={handleNumberInput}
           onSubmit={handleFormSubmit}
+          isLoading={isLoading}
         />
       </Section>
+      {isLoading && <TailSpin />}
       <Section title="Contacts">
         <Filter onChange={filterContacts} />
 
